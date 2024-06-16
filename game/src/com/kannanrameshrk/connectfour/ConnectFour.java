@@ -7,6 +7,7 @@ public class ConnectFour {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		char[][] board = new char[6][7];
+		ComputerPlay cp=new ComputerPlay();
 
 		fillArray(board);
 		int turn = 1;
@@ -22,7 +23,7 @@ public class ConnectFour {
                     System.out.println("Player " + player + " choose a column (0-6)");
                     play = input.nextInt();
                 } else {
-                    play = getComputerMove(board);
+                    play = cp.getComputerMove(board);
                     System.out.println("Computer (Player Y) chooses column " + play);
                 }
 				validPlay = validate(play, board);
@@ -63,33 +64,7 @@ public class ConnectFour {
 		}
 	}
 
-	private static int getComputerMove(char[][] board) {
-		for (int col = 0; col < board[0].length; col++) {
-            if (validate(col, board)) {
-                // Temporarily make the move
-                for (int row = board.length - 1; row >= 0; row--) {
-                    if (board[row][col] == '-') {
-                        board[row][col] = 'R';
-                        if (isWinner('R', board)) {
-                            board[row][col] = '-'; // Undo the move
-                            return col; // Block this move
-                        }
-                        board[row][col] = '-'; // Undo the move
-                        break;
-                    }
-                }
-            }
-        }
-        // If no immediate threat, choose the first available column
-        for (int col = 0; col < board[0].length; col++) {
-            if (validate(col, board)) {
-                return col;
-            }
-        }
-        return -1;
-	}
-
-	private static boolean isWinner(char player, char[][] board) {
+	static boolean isWinner(char player, char[][] board) {
 		// check for four across
 
 		for (int i = 0; i < board.length; i++) {
@@ -135,7 +110,7 @@ public class ConnectFour {
 		return false;
 	}
 
-	private static boolean validate(int n, char[][] board) {
+	public static boolean validate(int n, char[][] board) {
 		if (n < 0 && n > board[0].length) {
 			return false;
 		}
@@ -146,7 +121,7 @@ public class ConnectFour {
 		return true;
 	}
 
-	private static void display(char[][] board) {
+	public static void display(char[][] board) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				System.out.print(board[i][j] + ",");
