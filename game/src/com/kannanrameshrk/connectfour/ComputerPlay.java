@@ -3,7 +3,25 @@ package com.kannanrameshrk.connectfour;
 public class ComputerPlay {
 
 	public int getComputerMove(char[][] board) {
+		//level3 
 		
+		for(int j=0;j<board[0].length;j++) {
+			if(ConnectFour.validate(j, board)) {
+				for(int i=board.length-1;i>=0;i--) {
+					if(board[i][j]=='-') {
+						board[i][j]='Y';
+						if(ConnectFour.isWinner('Y', board)) {
+							board[i][j]='-';
+							return j;
+						}
+						board[i][j]='-';
+						break;
+					}
+				}
+			}
+		}
+		
+		//level 2
 		for (int col = 0; col < board[0].length; col++) {
             if (ConnectFour.validate(col, board)) {
                 // Temporarily make the move
