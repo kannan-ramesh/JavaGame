@@ -1,8 +1,11 @@
 package com.kannanrameshrk.assetmanagementsystem.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Software {
+public class Software implements Serializable {
+	private static final long serialVersionUID=1;
+	
 	private String name;
 	private Vendor vendor;
 	private double costPerDevice;

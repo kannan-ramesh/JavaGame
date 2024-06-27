@@ -1,9 +1,11 @@
 package com.kannanrameshrk.assetmanagementsystem.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Employee {
+public class Employee implements Serializable{
+	private static final long serialVersionUID=1;
 	private String employeeId;
 	private String name;
 	private List<Device> devices;

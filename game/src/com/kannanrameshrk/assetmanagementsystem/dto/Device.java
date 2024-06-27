@@ -1,8 +1,11 @@
 package com.kannanrameshrk.assetmanagementsystem.dto;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Device {
+public class Device implements Serializable{
+	private static final long serialVersionUID=1;
 	private String deviceID;
 	private Employee owner;
 	private List<Installation> installations;
@@ -12,6 +15,7 @@ public class Device {
 	public Device(String deviceID, Employee employee) {
 		this.deviceID=deviceID;
 		this.owner=employee;
+		this.installations=new ArrayList<>();
 	}
 	public Device() {
 		// TODO Auto-generated constructor stub

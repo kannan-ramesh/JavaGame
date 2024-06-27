@@ -1,5 +1,12 @@
 package com.kannanrameshrk.assetmanagementsystem;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,6 +22,7 @@ import com.kannanrameshrk.assetmanagementsystem.dto.Vendor;
 
 public class AssetManageSystem {
 	static Scanner input=new Scanner(System.in);
+	private static final String FILE="asset.dat";
 	private List<Software> softwares;
 	private List<Device> devices;
 	private List<Employee> employees;
@@ -28,6 +36,7 @@ public class AssetManageSystem {
 	}
 	
 	public void run() {
+		loadData();
 		while(true) {
 			System.out.println("\n Asset Management System Menu:");
 			System.out.println("1. Add Vendor");
@@ -69,6 +78,7 @@ public class AssetManageSystem {
 			}
 			case 7:{
 				System.out.println("Exiting ....");
+				saveData();
 				return;
 			}
 			
@@ -80,6 +90,56 @@ public class AssetManageSystem {
 		}
 		
 	}
+	private void saveData() {
+		FileOutputStream fos=null;
+		ObjectOutputStream oos=null;
+		try {
+			fos=new FileOutputStream(FILE);
+			oos=new ObjectOutputStream(fos);
+			
+			oos.writeObject(softwares);
+			oos.writeObject(devices);
+			oos.writeObject(employees);
+			oos.writeObject(vendors);
+		} catch (IOException e) {
+			  System.out.println("Error saving data: " + e.getMessage());
+		}	
+	}
+
+	@SuppressWarnings("unchecked")
+	private void loadData() {
+		  ensureFileExists();
+		FileInputStream fis=null;
+		ObjectInputStream ois=null;
+		try {
+			fis=new FileInputStream(FILE);
+			ois=new ObjectInputStream(fis);
+			
+			softwares=(List<Software>) ois.readObject();
+			devices=(List<Device>) ois.readObject();
+			employees=(List<Employee>) ois.readObject();
+			vendors=(List<Vendor>) ois.readObject();
+				
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException  | ClassNotFoundException e) {
+			System.out.println("No data found..");
+		}
+		
+	}
+
+	private void ensureFileExists() {
+		File file=new File(FILE);
+		
+		if(!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				 System.out.println("Error creating new file: " + e.getMessage());
+			}
+		}
+	}
+
 	private void genrateReport() {
 		System.out.println("\n Report Menu:");
 		System.out.println("1. Number of installations of a particular software");
@@ -359,7 +419,7 @@ public class AssetManageSystem {
 		System.out.println("Enter Cost Per Device:");
 		double costPerDevice = input.nextDouble();
 		System.out.println("Enter Expiry Date(yyyy-mm-dd):");
-		String date=input.nextLine();
+		String date=input.next();
 		Date expiryDate=parseDate(date);
 		
 		if(expiryDate == null) {
@@ -403,8 +463,6 @@ public class AssetManageSystem {
 	}
 
 	private void AddVendor(Vendor vendor) {
-		vendors.add(vendor);
-		
+		vendors.add(vendor);		
 	}
-
 }

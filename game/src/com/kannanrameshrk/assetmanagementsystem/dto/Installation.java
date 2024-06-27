@@ -1,8 +1,10 @@
 package com.kannanrameshrk.assetmanagementsystem.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Installation {
+public class Installation implements Serializable {
+	private static final long serialVersionUID=1;
 	private Software software;
 	private Date installationDate;
 	
