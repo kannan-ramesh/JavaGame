@@ -6,5 +6,4 @@ public class Main {
 		PlayBalloon playBalloon = new PlayBalloon();
 		playBalloon.start();
 	}
-
 }
