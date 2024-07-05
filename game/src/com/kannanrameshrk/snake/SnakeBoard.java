@@ -77,7 +77,6 @@ public class SnakeBoard {
 				
 				int row=node.getRow();
 				int col=node.getCol();
-				
 				board[row][col]='-';
 			}
 			
