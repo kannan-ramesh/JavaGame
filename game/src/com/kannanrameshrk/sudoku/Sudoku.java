@@ -1,12 +1,10 @@
 package com.kannanrameshrk.sudoku;
 
-import java.util.Random;
 import java.util.Scanner;
 
 public class Sudoku {
 	private static final int SIZE=9;
 	private static int[][] board=new int[SIZE][SIZE];
-	private static Random random=new Random();
 	
 	public static void main(String[] args) {
 		System.out.println("\t\t SUDOKU");
@@ -38,11 +36,10 @@ public class Sudoku {
             for (int col = 0; col < SIZE; col++) {
             	
                 if (board[row][col] == 0) {
-                	
                     for (int num = 1; num <= SIZE; num++) {
                         if (isValidMove(row, col, num)) {
                             board[row][col] = num;
-
+                            
                             if (solveSudoku()) {
                                 return true;
                             } else {
