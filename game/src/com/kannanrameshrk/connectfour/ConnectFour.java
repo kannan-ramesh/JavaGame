@@ -14,9 +14,10 @@ public class ConnectFour {
 		boolean winner = false;
 		char player = 'R';
 
-		while (winner == false && turn <= 42) {
+		while (winner == false && turn <= board.length*board[0].length) {
 			boolean validPlay = false;
 			int play;
+			
 			do {
 				display(board);
 				if (player == 'R') {
@@ -31,7 +32,6 @@ public class ConnectFour {
 			} while (validPlay == false);
 
 			// drop the tocken board
-
 			for (int i = board.length - 1; i >= 0; i--) {
 				if (board[i][play] == '-') {
 					board[i][play] = player;
@@ -40,7 +40,6 @@ public class ConnectFour {
 			}
 
 			// detarmin winner
-
 			winner = isWinner(player, board);
 
 			// switch player
@@ -64,9 +63,8 @@ public class ConnectFour {
 		}
 	}
 
-	static boolean isWinner(char player, char[][] board) {
+	public static boolean isWinner(char player, char[][] board) {
 		// check for four across
-
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length - 3; j++) {
 				if (board[i][j] == player && board[i][j + 1] == player && board[i][j + 2] == player
@@ -77,7 +75,6 @@ public class ConnectFour {
 		}
 
 		// check four up and down
-
 		for (int i = 0; i < board.length - 3; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				if (board[i][j] == player && board[i + 1][j] == player && board[i + 2][j] == player
@@ -88,7 +85,6 @@ public class ConnectFour {
 		}
 
 		// check upward diagnol
-
 		for (int i = 3; i < board.length; i++) {
 			for (int j = 0; j < board[0].length - 3; j++) {
 				if (board[i][j] == player && board[i - 1][j + 1] == player && board[i - 2][j + 2] == player
@@ -98,7 +94,6 @@ public class ConnectFour {
 			}
 		}
 		// check downward diagonal
-
 		for (int i = 0; i < board.length - 3; i++) {
 			for (int j = 0; j < board[0].length - 3; j++) {
 				if (board[i][j] == player && board[i + 1][j + 1] == player && board[i + 2][j + 2] == player

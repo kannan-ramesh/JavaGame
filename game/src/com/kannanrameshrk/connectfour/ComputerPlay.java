@@ -23,7 +23,6 @@ public class ComputerPlay {
 		// level 2
 		for (int col = 0; col < board[0].length; col++) {
 			if (ConnectFour.validate(col, board)) {
-				// Temporarily make the move
 				for (int row = board.length - 1; row >= 0; row--) {
 					if (board[row][col] == '-') {
 						board[row][col] = 'R';

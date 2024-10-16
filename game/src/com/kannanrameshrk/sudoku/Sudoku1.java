@@ -1,8 +1,8 @@
 package com.kannanrameshrk.sudoku;
 
-public class Sudoku {
-	private static final int SIZE=9;
-	private static int[][] board=new int[SIZE][SIZE];
+public class Sudoku1 {
+	private static final int Size=9;
+	private static int[][] board=new int[Size][Size];
 	
 	public static void main(String[] args) {
 		System.out.println("\t\t SUDOKU");
@@ -20,27 +20,25 @@ public class Sudoku {
             {0, 0, 0, 0, 8, 0, 0, 7, 9}
         };
         printBoard();
-       
-        if(solveSudokku()) {
-        	System.out.println("Congratulations you won...");
-        	 printBoard();
+        if(validSudokku()) {
+        	System.out.println("Congratulations You Won");
+        	printBoard();
         }else {
-        	System.out.println("you not won...");
+        	System.out.println("play gain..");
         	printBoard();
         }
+
 	}
 
-	
-
-	private static boolean solveSudokku() {
-		for(int i=0;i<SIZE;i++) {
-			for(int j=0;j<SIZE;j++) {
+	private static boolean validSudokku() {
+		for(int i=0;i<Size;i++) {
+			for(int j=0;j<Size;j++) {
 				if(board[i][j]==0) {
-					for(int num=1;num<=SIZE;num++) {
-						if(validCheck(i,j,num)) {
+					for(int num=1;num<=Size;num++) {
+						if(validMove(i,j,num)) {
 							board[i][j]=num;
 							
-							if(solveSudokku()) {
+							if(validSudokku()) {
 								return true;
 							}else {
 								board[i][j]=0;
@@ -54,12 +52,12 @@ public class Sudoku {
 		return true;
 	}
 
-
-
-	private static boolean validCheck(int row, int col, int num) {
-		if(board[row][col]!=0) return false;
+	private static boolean validMove(int row, int col, int num) {
+		if(board[row][col]!=0) {
+			return false;
+		}
 		
-		for(int i=0;i<SIZE;i++) {
+		for(int i=0;i<Size;i++) {
 			if(board[row][i]==num || board[i][col]==num) {
 				return false;
 			}
@@ -78,21 +76,18 @@ public class Sudoku {
 		return true;
 	}
 
-
-
 	private static void printBoard() {
-		for(int i=0;i<SIZE;i++) {
+		for(int i=0;i<Size;i++) {
 			if(i%3==0 && i!=0) {
-				System.out.println("-------------------");
+				System.out.println("--------------------");
 			}
-			for(int j=0;j<SIZE;j++){
-				if(j%3==0 && j!=0) {
+			for(int j=0;j<Size;j++) {
+				if(j%3==0 &&j!=0) {
 					System.out.print("|");
 				}
-				System.out.print(board[i][j]==0 ?". ":board[i][j]+" ");
+				System.out.print(board[i][j]==0?". ":board[i][j]+" ");
 			}
 			System.out.println();
-		}
+		}	
 	}
-
 }

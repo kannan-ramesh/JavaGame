@@ -20,6 +20,7 @@ public class TaskManager {
 		tasks=new ArrayList<>();
 		loadTasks();
 	}
+	
 
 	private void loadTasks() {
 		FileInputStream fis=null;
@@ -29,13 +30,12 @@ public class TaskManager {
 			fis=new FileInputStream(FILE_NAME);
 			ois=new ObjectInputStream(fis);
 			tasks=(List<Task>) ois.readObject();
+			
 		}catch(FileNotFoundException e) {
 			System.out.println("No saved tasks found. Starting with an empty list.");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
